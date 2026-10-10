@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel da Estação de Qualidade do Ar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Painel de instrumento: resumo no topo, mostradores em grade, graficos empilhados com cursor */
+:root{
+  --bg:#eef2f3; --surface:#ffffff; --ink:#15232b; --muted:#5d6f78; --line:#d9e1e4;
+  --accent:#1d6a7a; --accent-soft:#d7ecef;
+  --ok:#2e7d32; --mod:#c99a06; --ruim:#e46a12; --mruim:#c62828; --pess:#6a1b9a;
+  --pm1:#7aa7b3; --pm25:#c62828; --pm10:#8d6e63; --temp:#e46a12; --umid:#1565c0; --umid2:#7fa6d9; --press:#4e5d9c; --gas:#7b3fa0;
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-num:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0f181c; --surface:#172429; --ink:#e3ecef; --muted:#93a6ad; --line:#2a3a40;
+    --accent:#5fb6c6; --accent-soft:#1d3a41;
+    --pm1:#8fbcc7; --pm25:#ff6b6b; --pm10:#c2a093; --temp:#ff9a4d; --umid:#64a8ff; --umid2:#a5c4ee; --press:#9aa8ec; --gas:#c18be0;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:14px;line-height:1.45}
+.pagina{max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:16px 28px;display:grid;gap:14px}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+
+/* Cabecalho */
+.topo{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.topo h1{margin:0;font-size:1.25rem;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.topo .sub{color:var(--muted);font-size:.85rem}
+.estado{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:.8rem;font-weight:600;background:var(--accent-soft);color:var(--ink)}
+.estado::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.estado.online::before{background:var(--ok)}
+.estado.offline::before{background:var(--mruim)}
+.periodos{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.periodos button{font:inherit;font-size:.85rem;border:0;background:transparent;color:var(--ink);padding:6px 12px;cursor:pointer}
+.periodos button+button{border-left:1px solid var(--line)}
+.periodos button[aria-pressed="true"]{background:var(--accent);color:var(--surface);font-weight:600}
+.periodos button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+/* Resumo da qualidade do ar */
+.resumo{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:18px;align-items:center}
+.resumo .rotulo{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.resumo .grande{display:flex;align-items:baseline;gap:8px;margin-top:2px}
+.resumo .grande .num{font-size:2.8rem;font-weight:500;line-height:1}
+.resumo .grande .un{color:var(--muted)}
+.classe{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:6px;font-weight:700;color:#fff;background:var(--muted)}
+.escala{position:relative;margin-top:6px}
+.escala .faixas{display:flex;height:12px;border-radius:6px;overflow:hidden}
+.escala .faixas span{display:block;height:100%}
+.escala .marcador{position:absolute;top:-5px;width:3px;height:22px;background:var(--ink);border-radius:2px;transform:translateX(-1px);transition:left .4s}
+.escala .marcas{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:4px}
+.aviso{margin-top:10px;font-size:.85rem;color:var(--muted)}
+.aviso strong{color:var(--ink)}
+
+/* Mostradores */
+.grade{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:860px){.grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mostrador{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:4px;min-width:0}
+.mostrador .nome{font-size:.8rem;color:var(--muted)}
+.mostrador .valor{display:flex;align-items:baseline;gap:6px}
+.mostrador .valor .num{font-size:1.6rem;font-weight:500}
+.mostrador .valor .un{color:var(--muted);font-size:.85rem}
+.tend{font-size:.8rem;font-family:var(--font-num)}
+.tend.sobe{color:var(--ruim)} .tend.desce{color:var(--accent)} .tend.igual{color:var(--muted)}
+.mostrador .faixa{font-size:.75rem;color:var(--muted);font-family:var(--font-num);font-variant-numeric:tabular-nums}
+
+/* Graficos */
+.bloco{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px 10px;min-width:0}
+.bloco h2{margin:0 0 6px;font-size:.95rem;font-weight:600;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+.legenda{display:inline-flex;flex-wrap:wrap;gap:4px 12px;font-size:.78rem;font-weight:400;color:var(--muted)}
+.legenda i{display:inline-block;width:12px;height:3px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.grafico{position:relative}
+.grafico canvas{display:block;width:100%;height:190px;touch-action:pan-y}
+.dica{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.75rem;padding:6px 8px;border-radius:6px;white-space:nowrap;font-family:var(--font-num);transform:translate(-50%,-100%);top:0}
+.dupla{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px}
+
+/* Saude da estacao */
+.saude{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px 18px}
+.saude div{display:grid;gap:2px}
+.saude .k{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.saude .v{font-family:var(--font-num);font-size:1rem}
+.rodape{font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between}
+.rodape a{color:var(--accent)}
+.erro{background:var(--surface);border:1px solid var(--mruim);border-left-width:4px;border-radius:8px;padding:10px 12px}
+@media (max-width:640px){
+  .resumo{grid-template-columns:minmax(0,1fr)}
+  .resumo .grande .num{font-size:2.3rem}
+}
+@media (prefers-reduced-motion:reduce){.escala .marcador{transition:none}}
+</style>
+</head>
+<body>
+<div class="pagina">
+
+  <header class="topo">
+    <div>
+      <h1>Estação de Qualidade do Ar</h1>
+      <div class="sub"><span class="estado" id="estado">carregando</span> <span id="ultimo">buscando dados no ThingSpeak...</span></div>
+    </div>
+    <div class="periodos" role="group" aria-label="Período dos gráficos">
+      <button type="button" id="p6" data-p="6h" aria-pressed="true">6 h</button>
+      <button type="button" id="p24" data-p="24h" aria-pressed="false">24 h</button>
+      <button type="button" id="p3d" data-p="3d" aria-pressed="false">3 dias</button>
+      <button type="button" id="p7d" data-p="7d" aria-pressed="false">7 dias</button>
+    </div>
+  </header>
+
+  <div class="erro" id="erro" hidden></div>
+
+  <section class="resumo" aria-label="Qualidade do ar agora">
+    <div>
+      <div class="rotulo">PM2.5 agora, média de 5 min</div>
+      <div class="grande"><span class="num" id="pmAgora">--</span><span class="un">µg/m³</span></div>
+      <span class="classe" id="classe">---</span>
+    </div>
+    <div>
+      <div class="rotulo">Escala usada pela estação, PM2.5</div>
+      <div class="escala">
+        <div class="faixas" id="faixas"></div>
+        <div class="marcador" id="marcador" style="left:0%"></div>
+        <div class="marcas num"><span>0</span><span>25</span><span>50</span><span>75</span><span>125</span><span>150+</span></div>
+      </div>
+      <div class="aviso" id="aviso">Média do período: <strong class="num" id="pmMedia">--</strong> µg/m³ · referência da OMS para 24 h: 15 µg/m³</div>
+    </div>
+  </section>
+
+  <section class="grade" id="mostradores" aria-label="Leituras atuais"></section>
+
+  <section class="bloco">
+    <h2>Partículas <span class="legenda"><span><i style="background:var(--pm1)"></i>PM1.0</span><span><i style="background:var(--pm25)"></i>PM2.5</span><span><i style="background:var(--pm10)"></i>PM10</span><span>tracejado: limite "BOA" (25)</span></span></h2>
+    <div class="grafico"><canvas id="gPm"></canvas></div>
+  </section>
+
+  <div class="dupla">
+    <section class="bloco">
+      <h2>Temperatura <span class="legenda"><span><i style="background:var(--temp)"></i>BME280 (°C)</span></span></h2>
+      <div class="grafico"><canvas id="gTemp"></canvas></div>
+    </section>
+    <section class="bloco">
+      <h2>Umidade <span class="legenda"><span><i style="background:var(--umid)"></i>BME280</span><span><i style="background:var(--umid2)"></i>DHT22</span><span>(%)</span></span></h2>
+      <div class="grafico"><canvas id="gUmid"></canvas></div>
+    </section>
+    <section class="bloco">
+      <h2>Pressão <span class="legenda"><span><i style="background:var(--press)"></i>hPa</span></span></h2>
+      <div class="grafico"><canvas id="gPress"></canvas></div>
+    </section>
+    <section class="bloco">
+      <h2>Gases (MQ135) <span class="legenda"><span><i style="background:var(--gas)"></i>tensão (V), mais alto = mais gases</span></span></h2>
+      <div class="grafico"><canvas id="gGas"></canvas></div>
+    </section>
+  </div>
+
+  <section class="bloco">
+    <h2>Saúde da estação</h2>
+    <div class="saude">
+      <div><span class="k">Último envio</span><span class="v" id="sUltimo">--</span></div>
+      <div><span class="k">Registros no período</span><span class="v" id="sQtd">--</span></div>
+      <div><span class="k">Cobertura</span><span class="v" id="sCob">--</span></div>
+      <div><span class="k">Maior intervalo sem dados</span><span class="v" id="sBuraco">--</span></div>
+      <div><span class="k">Sensores sem dado no último envio</span><span class="v" id="sFalta">--</span></div>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <span id="atualizado">--</span>
+    <a id="csv" href="#" target="_blank" rel="noopener">Baixar dados dos últimos 7 dias (CSV)</a>
+  </footer>
+</div>
+
+<script>
+// =====================================================================
+// CONFIGURACAO - preencha com os dados do seu canal no ThingSpeak
+// (Channels > My Channels > seu canal: "Channel ID" no topo e
+//  aba "API Keys" > "Read API Key")
+// =====================================================================
+const CANAL = "3527955";
+const CHAVE_LEITURA = "RWITX8B4Z6CKDK7K";
+// =====================================================================
+
+const INTERVALO_ENVIO_S = 20;      // a estacao envia a cada 20 s
+const OFFLINE_APOS_S = 120;        // sem envio ha mais de 2 min = fora do ar
+const ATUALIZAR_A_CADA_MS = 60000;
+
+const PERIODOS = {
+  "6h":  {consulta: "minutes=360",        bucket: INTERVALO_ENVIO_S, rotulo: "6 h",    seg: 6 * 3600},
+  "24h": {consulta: "days=1&average=10",  bucket: 600,               rotulo: "24 h",   seg: 86400},
+  "3d":  {consulta: "days=3&average=30",  bucket: 1800,              rotulo: "3 dias", seg: 3 * 86400},
+  "7d":  {consulta: "days=7&average=60",  bucket: 3600,              rotulo: "7 dias", seg: 7 * 86400}
+};
+
+const CLASSES = [
+  {ate: 25,       nome: "BOA",        cor: "--ok"},
+  {ate: 50,       nome: "MODERADA",   cor: "--mod"},
+  {ate: 75,       nome: "RUIM",       cor: "--ruim"},
+  {ate: 125,      nome: "MUITO RUIM", cor: "--mruim"},
+  {ate: Infinity, nome: "PÉSSIMA",    cor: "--pess"}
+];
+
+const MOSTRADORES = [
+  {id: "pm25", campo: 5, nome: "PM2.5",              un: "µg/m³", casas: 0},
+  {id: "pm10", campo: 6, nome: "PM10",               un: "µg/m³", casas: 0},
+  {id: "pm1",  campo: 4, nome: "PM1.0",              un: "µg/m³", casas: 0},
+  {id: "temp", campo: 1, nome: "Temperatura",        un: "°C",    casas: 1},
+  {id: "umid", campo: 2, nome: "Umidade (BME280)",   un: "%",     casas: 1},
+  {id: "umd2", campo: 8, nome: "Umidade (DHT22)",    un: "%",     casas: 1},
+  {id: "pres", campo: 3, nome: "Pressão",            un: "hPa",   casas: 1},
+  {id: "gas",  campo: 7, nome: "Gases (MQ135)",      un: "V",     casas: 2}
+];
+
+const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const $ = id => document.getElementById(id);
+let periodo = "6h";
+let graficos = {};
+
+function classificar(pm) {
+  if (pm === null) return null;
+  return CLASSES.find(c => pm <= c.ate);
+}
+function num(v) {
+  if (v === null || v === undefined || v === "") return null;
+  const n = parseFloat(v);
+  return isFinite(n) ? n : null;
+}
+function fmt(v, casas) {
+  return v === null ? "--" : v.toLocaleString("pt-BR", {minimumFractionDigits: casas, maximumFractionDigits: casas});
+}
+function duracao(seg) {
+  seg = Math.max(0, Math.round(seg));
+  if (seg < 90) return seg + " s";
+  if (seg < 5400) return Math.round(seg / 60) + " min";
+  if (seg < 172800) return (seg / 3600).toFixed(1).replace(".", ",") + " h";
+  return (seg / 86400).toFixed(1).replace(".", ",") + " dias";
+}
+function horaCurta(d) { return d.toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"}); }
+function dataHora(d) { return d.toLocaleString("pt-BR", {day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit"}); }
+
+async function buscar(consulta) {
+  const url = "https://api.thingspeak.com/channels/" + encodeURIComponent(CANAL) +
+              "/feeds.json?api_key=" + encodeURIComponent(CHAVE_LEITURA) + "&" + consulta;
+  const r = await fetch(url, {cache: "no-store"});
+  if (!r.ok) throw new Error("ThingSpeak respondeu " + r.status);
+  const j = await r.json();
+  if (j === -1 || !j.feeds) throw new Error("canal ou chave de leitura incorretos");
+  return j.feeds.map(f => {
+    const linha = {t: new Date(f.created_at)};
+    for (let c = 1; c <= 8; c++) linha[c] = num(f["field" + c]);
+    return linha;
+  }).filter(l => !isNaN(l.t));
+}
+
+function mostrarErro(msg) {
+  const e = $("erro");
+  e.hidden = !msg;
+  e.textContent = msg || "";
+}
+
+// ---------------- Mostradores ----------------
+function montarMostradores() {
+  $("mostradores").innerHTML = MOSTRADORES.map(m =>
+    '<div class="mostrador"><div class="nome">' + m.nome + '</div>' +
+    '<div class="valor"><span class="num" id="v_' + m.id + '">--</span><span class="un">' + m.un + '</span></div>' +
+    '<div class="tend igual" id="t_' + m.id + '"></div>' +
+    '<div class="faixa" id="f_' + m.id + '">mín -- · méd -- · máx --</div></div>').join("");
+}
+
+function mediaJanela(linhas, campo, desde, ate) {
+  const v = linhas.filter(l => l.t >= desde && l.t <= ate && l[campo] !== null).map(l => l[campo]);
+  return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+}
+
+function atualizarMostradores(recentes, doPeriodo) {
+  const fim = recentes.length ? recentes[recentes.length - 1].t : null;
+  for (const m of MOSTRADORES) {
+    let agora = null, antes = null;
+    if (fim) {
+      agora = mediaJanela(recentes, m.campo, new Date(fim - 5 * 60000), fim);
+      antes = mediaJanela(recentes, m.campo, new Date(fim - 65 * 60000), new Date(fim - 55 * 60000));
+    }
+    $("v_" + m.id).textContent = fmt(agora, m.casas);
+    const t = $("t_" + m.id);
+    if (agora !== null && antes !== null) {
+      const d = agora - antes, limiar = Math.pow(10, -m.casas) * (m.casas ? 1 : 2);
+      t.className = "tend " + (Math.abs(d) < limiar ? "igual" : d > 0 ? "sobe" : "desce");
+      t.textContent = (Math.abs(d) < limiar ? "estável" : (d > 0 ? "▲ " : "▼ ") + fmt(Math.abs(d), m.casas)) + " na última hora";
+    } else {
+      t.className = "tend igual";
+      t.textContent = "tendência: aguardando 1 h de dados";
+    }
+    const vals = doPeriodo.map(l => l[m.campo]).filter(v => v !== null);
+    $("f_" + m.id).textContent = vals.length
+      ? "mín " + fmt(Math.min(...vals), m.casas) + " · méd " + fmt(vals.reduce((a, b) => a + b, 0) / vals.length, m.casas) + " · máx " + fmt(Math.max(...vals), m.casas)
+      : "sem dados no período";
+  }
+}
+
+// ---------------- Resumo ----------------
+function montarEscala() {
+  $("faixas").innerHTML = CLASSES.map(c => '<span style="flex:1;background:var(' + c.cor + ')"></span>').join("");
+}
+function posicaoEscala(pm) {
+  // 5 faixas de largura igual na barra: 0-25, 25-50, 50-75, 75-125, 125-150+
+  const pontos = [0, 25, 50, 75, 125, 150];
+  pm = Math.min(Math.max(pm, 0), 150);
+  for (let i = 0; i < 5; i++) {
+    if (pm <= pontos[i + 1]) return (i + (pm - pontos[i]) / (pontos[i + 1] - pontos[i])) * 20;
+  }
+  return 100;
+}
+function atualizarResumo(recentes, doPeriodo) {
+  const fim = recentes.length ? recentes[recentes.length - 1].t : null;
+  const pm = fim ? mediaJanela(recentes, 5, new Date(fim - 5 * 60000), fim) : null;
+  $("pmAgora").textContent = fmt(pm, 0);
+  const c = classificar(pm);
+  const cl = $("classe");
+  cl.textContent = c ? c.nome : "sem dados";
+  cl.style.background = c ? "var(" + c.cor + ")" : "var(--muted)";
+  $("marcador").style.left = (pm === null ? 0 : posicaoEscala(pm)) + "%";
+  const vals = doPeriodo.map(l => l[5]).filter(v => v !== null);
+  const media = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+  const umid = fim ? mediaJanela(recentes, 2, new Date(fim - 5 * 60000), fim) : null;
+  let txt = 'Média de PM2.5 em ' + PERIODOS[periodo].rotulo + ': <strong class="num">' + fmt(media, 0) +
+            '</strong> µg/m³ · referência da OMS para 24 h: 15 µg/m³';
+  if (umid !== null && umid > 85) txt += '<br><strong>Umidade acima de 85 %:</strong> as partículas podem estar superestimadas (gotículas de água também são contadas).';
+  $("aviso").innerHTML = txt;
+}
+
+// ---------------- Saude ----------------
+function atualizarSaude(recentes, doPeriodo) {
+  const p = PERIODOS[periodo];
+  const agora = new Date();
+  const fim = recentes.length ? recentes[recentes.length - 1].t : (doPeriodo.length ? doPeriodo[doPeriodo.length - 1].t : null);
+  const atraso = fim ? (agora - fim) / 1000 : null;
+  const online = atraso !== null && atraso <= OFFLINE_APOS_S;
+  const est = $("estado");
+  est.className = "estado " + (online ? "online" : "offline");
+  est.textContent = online ? "no ar" : "sem envio";
+  $("ultimo").textContent = fim ? "último envio às " + horaCurta(fim) + " (há " + duracao(atraso) + ")" : "nenhum envio encontrado";
+  $("sUltimo").textContent = fim ? dataHora(fim) : "--";
+  $("sQtd").textContent = doPeriodo.length.toLocaleString("pt-BR");
+  const esperado = p.seg / p.bucket;
+  $("sCob").textContent = Math.min(100, doPeriodo.length / esperado * 100).toFixed(0) + " %";
+  let maior = 0, inicioBuraco = null;
+  const inicio = new Date(agora - p.seg * 1000);
+  let anterior = inicio;
+  for (const l of doPeriodo) {
+    const d = (l.t - anterior) / 1000;
+    if (d > maior) { maior = d; inicioBuraco = anterior; }
+    anterior = l.t;
+  }
+  const dFinal = (agora - anterior) / 1000;
+  if (dFinal > maior) { maior = dFinal; inicioBuraco = anterior; }
+  $("sBuraco").textContent = maior > p.bucket * 3
+    ? duracao(maior) + " (a partir de " + dataHora(inicioBuraco) + ")"
+    : "nenhum";
+  if (recentes.length) {
+    const u = recentes[recentes.length - 1];
+    const faltas = [];
+    if (u[1] === null) faltas.push("BME280");
+    if (u[5] === null) faltas.push("PMS7003");
+    if (u[7] === null) faltas.push("MQ135");
+    if (u[8] === null) faltas.push("DHT22");
+    $("sFalta").textContent = faltas.length ? faltas.join(", ") : "nenhum";
+  } else {
+    $("sFalta").textContent = "--";
+  }
+}
+
+// ---------------- Graficos ----------------
+function passoBonito(faixa, alvo) {
+  const bruto = faixa / Math.max(alvo, 1);
+  const pot = Math.pow(10, Math.floor(Math.log10(bruto)));
+  const n = bruto / pot;
+  return (n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10) * pot;
+}
+
+function criarGrafico(idCanvas, series, opcoes) {
+  const canvas = $(idCanvas);
+  const caixa = canvas.parentElement;
+  const dica = document.createElement("div");
+  dica.className = "dica";
+  dica.hidden = true;
+  caixa.appendChild(dica);
+  const g = {canvas, dica, series, opcoes, linhas: [], t0: 0, t1: 1, cursor: null};
+
+  function desenhar() {
+    const r = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w) return;
+    canvas.width = w * r; canvas.height = h * r;
+    const c = canvas.getContext("2d");
+    c.setTransform(r, 0, 0, r, 0, 0);
+    c.clearRect(0, 0, w, h);
+    const esq = 44, dir = 10, cima = 10, baixo = h - 22;
+    g.area = {esq, dir: w - dir, cima, baixo};
+    const corTexto = cssVar("--muted"), corGrade = cssVar("--line");
+    c.font = "11px " + cssVar("--font-num");
+
+    const valores = [];
+    for (const s of series) for (const l of g.linhas) if (l[s.campo] !== null) valores.push(l[s.campo]);
+    for (const ref of (opcoes.referencias || [])) if (valores.length) valores.push(ref.v);
+    if (valores.length < 2) {
+      c.fillStyle = corTexto;
+      c.fillText("sem dados neste período", esq, (cima + baixo) / 2);
+      return;
+    }
+    let mn = Math.min(...valores), mx = Math.max(...valores);
+    if (opcoes.zero) mn = Math.min(0, mn);
+    if (mx - mn < (opcoes.faixaMin || 1)) { const m = (mx + mn) / 2, f = (opcoes.faixaMin || 1) / 2; mn = m - f; mx = m + f; if (opcoes.zero) mn = Math.max(0, mn); }
+    const passo = passoBonito(mx - mn, 4);
+    mn = Math.floor(mn / passo) * passo; mx = Math.ceil(mx / passo) * passo;
+    g.mn = mn; g.mx = mx;
+    const X = t => esq + (t - g.t0) / (g.t1 - g.t0) * (w - dir - esq);
+    const Y = v => baixo - (v - mn) / (mx - mn) * (baixo - cima);
+    g.X = X; g.Y = Y;
+
+    // grade horizontal e rotulos do eixo Y
+    c.strokeStyle = corGrade; c.lineWidth = 1; c.fillStyle = corTexto; c.textAlign = "right"; c.textBaseline = "middle";
+    const casasEixo = passo < 1 ? (passo < 0.1 ? 2 : 1) : 0;
+    for (let v = mn; v <= mx + passo / 2; v += passo) {
+      const y = Math.round(Y(v)) + 0.5;
+      c.beginPath(); c.moveTo(esq, y); c.lineTo(w - dir, y); c.stroke();
+      c.fillText(v.toFixed(casasEixo).replace(".", ","), esq - 6, y);
+    }
+    // eixo do tempo
+    c.textAlign = "center"; c.textBaseline = "top";
+    const span = (g.t1 - g.t0) / 1000;
+    const passosT = [600, 1800, 3600, 7200, 10800, 21600, 43200, 86400];
+    const largura = w - esq - dir;
+    const alvo = Math.max(2, Math.floor(largura / 90));
+    const pt = passosT.find(p => span / p <= alvo) || 86400;
+    const fuso = new Date().getTimezoneOffset() * 60;
+    let t = Math.ceil((g.t0 / 1000 - fuso) / pt) * pt + fuso;
+    for (; t * 1000 <= g.t1; t += pt) {
+      const x = X(t * 1000), d = new Date(t * 1000);
+      c.strokeStyle = corGrade; c.beginPath(); c.moveTo(Math.round(x) + 0.5, cima); c.lineTo(Math.round(x) + 0.5, baixo); c.stroke();
+      const rot = pt >= 86400 ? d.toLocaleDateString("pt-BR", {day: "2-digit", month: "2-digit"})
+                : (d.getHours() === 0 && span > 86400) ? d.toLocaleDateString("pt-BR", {day: "2-digit", month: "2-digit"}) : horaCurta(d);
+      c.fillText(rot, x, baixo + 5);
+    }
+    // linhas de referencia
+    for (const ref of (opcoes.referencias || [])) {
+      if (ref.v < mn || ref.v > mx) continue;
+      c.save(); c.setLineDash([5, 4]); c.strokeStyle = cssVar(ref.cor); c.lineWidth = 1.2;
+      c.beginPath(); c.moveTo(esq, Y(ref.v)); c.lineTo(w - dir, Y(ref.v)); c.stroke(); c.restore();
+    }
+    // series (interrompe a linha onde ha buraco nos dados)
+    const limiteBuraco = PERIODOS[periodo].bucket * 3 * 1000;
+    series.forEach((s, i) => {
+      const cor = cssVar(s.cor);
+      let ant = null;
+      c.strokeStyle = cor; c.lineWidth = s.fina ? 1.4 : 2; c.lineJoin = "round";
+      c.beginPath();
+      for (const l of g.linhas) {
+        const v = l[s.campo];
+        if (v === null) { ant = null; continue; }
+        const x = X(l.t), y = Y(v);
+        if (ant && l.t - ant.t <= limiteBuraco) c.lineTo(x, y); else c.moveTo(x, y);
+        ant = l;
+      }
+      c.stroke();
+      // area suave sob a serie principal
+      if (i === 0 && opcoes.area) {
+        c.save(); c.globalAlpha = 0.10; c.fillStyle = cor;
+        let seg = [];
+        const fechar = () => {
+          if (seg.length > 1) {
+            c.beginPath(); c.moveTo(X(seg[0].t), baixo);
+            for (const p of seg) c.lineTo(X(p.t), Y(p[s.campo]));
+            c.lineTo(X(seg[seg.length - 1].t), baixo); c.closePath(); c.fill();
+          }
+          seg = [];
+        };
+        for (const l of g.linhas) {
+          if (l[s.campo] === null || (seg.length && l.t - seg[seg.length - 1].t > limiteBuraco)) fechar();
+          if (l[s.campo] !== null) seg.push(l);
+        }
+        fechar(); c.restore();
+      }
+      // ponto final destacado
+      for (let k = g.linhas.length - 1; k >= 0; k--) {
+        const l = g.linhas[k];
+        if (l[s.campo] !== null) {
+          c.fillStyle = cor; c.beginPath(); c.arc(X(l.t), Y(l[s.campo]), 3.2, 0, 7); c.fill();
+          break;
+        }
+      }
+    });
+    // cursor
+    if (g.cursor !== null) {
+      const l = g.linhas[g.cursor];
+      const x = X(l.t);
+      c.strokeStyle = cssVar("--ink"); c.globalAlpha = 0.35; c.beginPath(); c.moveTo(x, cima); c.lineTo(x, baixo); c.stroke(); c.globalAlpha = 1;
+      for (const s of series) if (l[s.campo] !== null) {
+        c.fillStyle = cssVar("--surface"); c.strokeStyle = cssVar(s.cor); c.lineWidth = 2;
+        c.beginPath(); c.arc(x, Y(l[s.campo]), 4, 0, 7); c.fill(); c.stroke();
+      }
+    }
+  }
+
+  function mover(ev) {
+    if (!g.linhas.length || !g.X) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = ev.clientX - rect.left;
+    let melhor = 0, dist = Infinity;
+    g.linhas.forEach((l, i) => { const d = Math.abs(g.X(l.t) - x); if (d < dist) { dist = d; melhor = i; } });
+    g.cursor = melhor;
+    const l = g.linhas[melhor];
+    const partes = series.filter(s => l[s.campo] !== null).map(s => s.nome + " " + fmt(l[s.campo], s.casas));
+    dica.textContent = dataHora(l.t) + "  " + (partes.join(" · ") || "sem dado");
+    dica.hidden = false;
+    const px = Math.min(Math.max(g.X(l.t), 90), rect.width - 90);
+    dica.style.left = px + "px";
+    dica.style.top = "0px";
+    desenhar();
+  }
+  function sair() { g.cursor = null; dica.hidden = true; desenhar(); }
+  canvas.addEventListener("pointermove", mover);
+  canvas.addEventListener("pointerdown", mover);
+  canvas.addEventListener("pointerleave", sair);
+
+  g.atualizar = (linhas, t0, t1) => { g.linhas = linhas; g.t0 = t0; g.t1 = t1; g.cursor = null; dica.hidden = true; desenhar(); };
+  g.desenhar = desenhar;
+  return g;
+}
+
+function montarGraficos() {
+  graficos.pm = criarGrafico("gPm", [
+    {campo: 5, nome: "PM2.5", cor: "--pm25", casas: 0},
+    {campo: 6, nome: "PM10", cor: "--pm10", casas: 0, fina: true},
+    {campo: 4, nome: "PM1.0", cor: "--pm1", casas: 0, fina: true}
+  ], {zero: true, area: true, faixaMin: 10, referencias: [{v: 25, cor: "--ok"}]});
+  graficos.temp = criarGrafico("gTemp", [{campo: 1, nome: "°C", cor: "--temp", casas: 1}], {area: true, faixaMin: 2});
+  graficos.umid = criarGrafico("gUmid", [
+    {campo: 2, nome: "BME", cor: "--umid", casas: 1},
+    {campo: 8, nome: "DHT", cor: "--umid2", casas: 1, fina: true}
+  ], {area: true, faixaMin: 5, referencias: [{v: 85, cor: "--ruim"}]});
+  graficos.press = criarGrafico("gPress", [{campo: 3, nome: "hPa", cor: "--press", casas: 1}], {faixaMin: 2});
+  graficos.gas = criarGrafico("gGas", [{campo: 7, nome: "V", cor: "--gas", casas: 2}], {area: true, faixaMin: 0.1});
+}
+
+let ultimoPeriodo = [], ultimosRecentes = [];
+function desenharTudo() {
+  const agora = Date.now(), p = PERIODOS[periodo];
+  const t0 = agora - p.seg * 1000;
+  for (const k in graficos) graficos[k].atualizar(ultimoPeriodo, t0, agora);
+}
+
+async function atualizar() {
+  if (!CANAL || !CHAVE_LEITURA) {
+    mostrarErro("Falta configurar: preencha CANAL e CHAVE_LEITURA no começo do código JavaScript deste painel.");
+    $("estado").textContent = "não configurado";
+    return;
+  }
+  try {
+    const [recentes, doPeriodo] = await Promise.all([
+      buscar("minutes=90"),
+      periodo === "6h" ? null : buscar(PERIODOS[periodo].consulta)
+    ]);
+    const dados = doPeriodo || await buscar(PERIODOS["6h"].consulta);
+    ultimosRecentes = recentes; ultimoPeriodo = dados;
+    mostrarErro("");
+    atualizarResumo(recentes, dados);
+    atualizarMostradores(recentes, dados);
+    atualizarSaude(recentes, dados);
+    desenharTudo();
+    $("atualizado").textContent = "Atualizado às " + horaCurta(new Date()) + " · atualiza sozinho a cada minuto";
+  } catch (e) {
+    mostrarErro("Não consegui ler os dados do ThingSpeak (" + e.message + "). Vou tentar de novo em 1 minuto.");
+  }
+}
+
+function escolherPeriodo(p) {
+  periodo = p;
+  document.querySelectorAll(".periodos button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.p === p)));
+  atualizar();
+}
+
+montarMostradores();
+montarEscala();
+montarGraficos();
+document.querySelectorAll(".periodos button").forEach(b => b.addEventListener("click", () => escolherPeriodo(b.dataset.p)));
+$("csv").href = "https://api.thingspeak.com/channels/" + encodeURIComponent(CANAL) + "/feeds.csv?api_key=" + encodeURIComponent(CHAVE_LEITURA) + "&days=7";
+let redesenho = null;
+window.addEventListener("resize", () => { clearTimeout(redesenho); redesenho = setTimeout(() => { for (const k in graficos) graficos[k].desenhar(); }, 150); });
+atualizar();
+setInterval(atualizar, ATUALIZAR_A_CADA_MS);
+</script>
+</body>
+</html>
