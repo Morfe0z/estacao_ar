@@ -3,6 +3,8 @@
 ## Montagem
 | Foto | O que mostra |
 |---|---|
+| ![Protótipo visto de cima](prototipo-protoboard-vista-de-cima.jpg) | Protótipo completo na protoboard, visto de cima: ESP32 (esquerda), DHT22 (branco, em cima), BME280 (embaixo à esquerda), MQ135 (direita, LED vermelho), PMS7003 (verde, embaixo) e os resistores do divisor e do pull-up |
+| ![Protótipo de lado](prototipo-protoboard-lateral.jpg) | O mesmo protótipo de lado, ligado e funcionando |
 | ![PMS7003 com adaptadora](pms7003-adaptadora-e-cabo.jpg) | PMS7003 com a placa adaptadora e o cabo |
 
 <!-- Fotos da montagem completa entram aqui: protoboard com todos os sensores, detalhe do divisor do MQ135,

@@ -5,7 +5,9 @@ Estação de baixo custo baseada em **ESP32** que mede **partículas (PM1.0, PM2
 
 **📊 Painel ao vivo: https://morfe0z.github.io/estacao_ar/**
 
-![Diagrama de ligações](hardware/diagrama-ligacoes.svg)
+| Protótipo funcionando | Diagrama de ligações |
+|---|---|
+| <img src="fotos/prototipo-protoboard-vista-de-cima.jpg" width="300"> | <img src="hardware/diagrama-ligacoes.svg" width="560"> |
 
 ## O que a estação mede
 
