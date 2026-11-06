@@ -1,0 +1,14 @@
+# Senhas e chaves: ficam so no computador de quem grava o ESP32
+secrets.h
+**/secrets.h
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# KiCad: arquivos temporarios e backups
+*-backups/
+*.kicad_prl
+_autosave-*
+*.lck
+fp-info-cache
