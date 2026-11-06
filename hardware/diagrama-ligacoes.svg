@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 830" width="1260" height="830" font-family="Helvetica, Arial, sans-serif">
+<rect width="1260" height="830" fill="#ffffff"/>
+<text x="630" y="34" text-anchor="middle" font-size="22" font-weight="bold" fill="#212121">Estação de qualidade do ar: ligações (ESP32 DevKit 30 pinos)</text>
+<rect x="480" y="80" width="240" height="480" rx="10" fill="#263238"/>
+<rect x="560" y="86" width="80" height="20" rx="2" fill="#90a4ae"/>
+<text x="600" y="101" font-size="11" text-anchor="middle" fill="#263238">antena</text>
+<rect x="545" y="230" width="110" height="130" rx="4" fill="#78909c"/>
+<text x="600" y="290" font-size="18" text-anchor="middle" fill="#ffffff" font-weight="bold">ESP32</text>
+<text x="600" y="310" font-size="12" text-anchor="middle" fill="#ffffff">WROOM-32</text>
+<rect x="575" y="545" width="50" height="22" rx="3" fill="#b0bec5"/>
+<text x="600" y="592" font-size="12" text-anchor="middle" fill="#455a64">micro-USB</text>
+<circle cx="480" cy="110" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="115" font-size="13" text-anchor="start" fill="#b0bec5">EN</text>
+<circle cx="480" cy="140" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="145" font-size="13" text-anchor="start" fill="#b0bec5">VP (36)</text>
+<circle cx="480" cy="170" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="175" font-size="13" text-anchor="start" fill="#b0bec5">VN (39)</text>
+<circle cx="480" cy="200" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="205" font-size="13" text-anchor="start" fill="#ffffff" font-weight="bold">D34</text>
+<circle cx="480" cy="230" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="235" font-size="13" text-anchor="start" fill="#b0bec5">D35</text>
+<circle cx="480" cy="260" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="265" font-size="13" text-anchor="start" fill="#b0bec5">D32</text>
+<circle cx="480" cy="290" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="295" font-size="13" text-anchor="start" fill="#b0bec5">D33</text>
+<circle cx="480" cy="320" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="325" font-size="13" text-anchor="start" fill="#b0bec5">D25</text>
+<circle cx="480" cy="350" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="355" font-size="13" text-anchor="start" fill="#b0bec5">D26</text>
+<circle cx="480" cy="380" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="385" font-size="13" text-anchor="start" fill="#b0bec5">D27</text>
+<circle cx="480" cy="410" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="415" font-size="13" text-anchor="start" fill="#b0bec5">D14</text>
+<circle cx="480" cy="440" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="445" font-size="13" text-anchor="start" fill="#b0bec5">D12</text>
+<circle cx="480" cy="470" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="475" font-size="13" text-anchor="start" fill="#b0bec5">D13</text>
+<circle cx="480" cy="500" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="505" font-size="13" text-anchor="start" fill="#ffffff" font-weight="bold">GND</text>
+<circle cx="480" cy="530" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="494" y="535" font-size="13" text-anchor="start" fill="#ffffff" font-weight="bold">VIN</text>
+<circle cx="720" cy="110" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="115" font-size="13" text-anchor="end" fill="#b0bec5">D23</text>
+<circle cx="720" cy="140" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="145" font-size="13" text-anchor="end" fill="#ffffff" font-weight="bold">D22</text>
+<circle cx="720" cy="170" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="175" font-size="13" text-anchor="end" fill="#b0bec5">TX0</text>
+<circle cx="720" cy="200" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="205" font-size="13" text-anchor="end" fill="#b0bec5">RX0</text>
+<circle cx="720" cy="230" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="235" font-size="13" text-anchor="end" fill="#ffffff" font-weight="bold">D21</text>
+<circle cx="720" cy="260" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="265" font-size="13" text-anchor="end" fill="#b0bec5">D19</text>
+<circle cx="720" cy="290" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="295" font-size="13" text-anchor="end" fill="#b0bec5">D18</text>
+<circle cx="720" cy="320" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="325" font-size="13" text-anchor="end" fill="#b0bec5">D5</text>
+<circle cx="720" cy="350" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="355" font-size="13" text-anchor="end" fill="#ffffff" font-weight="bold">TX2 (17)</text>
+<circle cx="720" cy="380" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="385" font-size="13" text-anchor="end" fill="#ffffff" font-weight="bold">RX2 (16)</text>
+<circle cx="720" cy="410" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="415" font-size="13" text-anchor="end" fill="#ffffff" font-weight="bold">D4</text>
+<circle cx="720" cy="440" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="445" font-size="13" text-anchor="end" fill="#b0bec5">D2</text>
+<circle cx="720" cy="470" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="475" font-size="13" text-anchor="end" fill="#b0bec5">D15</text>
+<circle cx="720" cy="500" r="6" fill="#607d8b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="505" font-size="13" text-anchor="end" fill="#b0bec5">GND</text>
+<circle cx="720" cy="530" r="6" fill="#ffd54f" stroke="#ffffff" stroke-width="1.5"/>
+<text x="706" y="535" font-size="13" text-anchor="end" fill="#ffffff" font-weight="bold">3V3</text>
+<polyline points="40,650 1220,650" fill="none" stroke="#d32f2f" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="120" y="642" font-size="13" text-anchor="start" fill="#d32f2f" font-weight="bold">5 V (VIN)</text>
+<polyline points="40,690 1220,690" fill="none" stroke="#ef6c00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="120" y="682" font-size="13" text-anchor="start" fill="#ef6c00" font-weight="bold">3,3 V (3V3)</text>
+<polyline points="40,730 1220,730" fill="none" stroke="#212121" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="120" y="722" font-size="13" text-anchor="start" fill="#212121" font-weight="bold">GND (terra comum)</text>
+<polyline points="480,530 462,530 462,650" fill="none" stroke="#d32f2f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="462" cy="650" r="5" fill="#d32f2f"/>
+<polyline points="480,500 446,500 446,730" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="446" cy="730" r="5" fill="#212121"/>
+<polyline points="720,530 742,530 742,690" fill="none" stroke="#ef6c00" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="742" cy="690" r="5" fill="#ef6c00"/>
+<rect x="960" y="70" width="190" height="170" rx="8" fill="#eceff1" stroke="#455a64" stroke-width="2"/>
+<text x="1055.0" y="94" font-size="16" text-anchor="middle" fill="#212121" font-weight="bold">BME280</text>
+<text x="1055.0" y="112" font-size="12" text-anchor="middle" fill="#546e7a">temp., umidade, pressão (I2C)</text>
+<circle cx="960" cy="140" r="5" fill="#455a64"/>
+<text x="970" y="145" font-size="13" text-anchor="start" fill="#212121">SCL</text>
+<circle cx="960" cy="170" r="5" fill="#455a64"/>
+<text x="970" y="175" font-size="13" text-anchor="start" fill="#212121">SDA</text>
+<circle cx="1150" cy="140" r="5" fill="#455a64"/>
+<text x="1140" y="145" font-size="13" text-anchor="end" fill="#212121">VIN</text>
+<circle cx="1150" cy="170" r="5" fill="#455a64"/>
+<text x="1140" y="175" font-size="13" text-anchor="end" fill="#212121">GND</text>
+<polyline points="720,140 800,140 800,140 960,140" fill="none" stroke="#1565c0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="720,230 820,230 820,170 960,170" fill="none" stroke="#2e7d32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="960" y="280" width="190" height="170" rx="8" fill="#eceff1" stroke="#455a64" stroke-width="2"/>
+<text x="1055.0" y="304" font-size="16" text-anchor="middle" fill="#212121" font-weight="bold">PMS7003</text>
+<text x="1055.0" y="322" font-size="12" text-anchor="middle" fill="#546e7a">partículas (UART), conector P3</text>
+<circle cx="960" cy="342" r="5" fill="#455a64"/>
+<text x="970" y="347" font-size="13" text-anchor="start" fill="#212121">TX</text>
+<circle cx="960" cy="420" r="5" fill="#455a64"/>
+<text x="970" y="425" font-size="13" text-anchor="start" fill="#212121">RX</text>
+<circle cx="1150" cy="342" r="5" fill="#455a64"/>
+<text x="1140" y="347" font-size="13" text-anchor="end" fill="#212121">VCC</text>
+<circle cx="1150" cy="420" r="5" fill="#455a64"/>
+<text x="1140" y="425" font-size="13" text-anchor="end" fill="#212121">GND</text>
+<polyline points="960,342 860,342 860,380 720,380" fill="none" stroke="#6a1b9a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="960,420 880,420 880,350 720,350" fill="none" stroke="#ad1457" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="960" y="470" width="190" height="150" rx="8" fill="#eceff1" stroke="#455a64" stroke-width="2"/>
+<text x="1055.0" y="494" font-size="16" text-anchor="middle" fill="#212121" font-weight="bold">DHT22</text>
+<text x="1055.0" y="512" font-size="12" text-anchor="middle" fill="#546e7a">temp. e umidade (1 fio)</text>
+<circle cx="960" cy="540" r="5" fill="#455a64"/>
+<text x="970" y="545" font-size="13" text-anchor="start" fill="#212121">2 DADOS</text>
+<circle cx="960" cy="575" r="5" fill="#455a64"/>
+<text x="970" y="580" font-size="13" text-anchor="start" fill="#212121">3 (não ligar)</text>
+<circle cx="1150" cy="540" r="5" fill="#455a64"/>
+<text x="1140" y="545" font-size="13" text-anchor="end" fill="#212121">1 VCC</text>
+<circle cx="1150" cy="575" r="5" fill="#455a64"/>
+<text x="1140" y="580" font-size="13" text-anchor="end" fill="#212121">4 GND</text>
+<polyline points="720,410 900,410 900,540 960,540" fill="none" stroke="#b8860b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="900" cy="540" r="5" fill="#b8860b"/>
+<rect x="891" y="587.0" width="18" height="56" rx="3" fill="#fff8e1" stroke="#5d4037" stroke-width="2"/>
+<text x="886" y="619.0" font-size="12" text-anchor="end" fill="#5d4037" font-weight="bold">4,7 kΩ</text>
+<polyline points="900,540 900,587.0" fill="none" stroke="#ef6c00" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="900,643.0 900,690" fill="none" stroke="#ef6c00" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="900" cy="690" r="5" fill="#ef6c00"/>
+<polyline points="1150,140 1180,140" fill="none" stroke="#ef6c00" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1180" cy="140" r="5" fill="#ef6c00"/>
+<polyline points="1150,540 1180,540" fill="none" stroke="#ef6c00" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1180" cy="540" r="5" fill="#ef6c00"/>
+<polyline points="1180,140 1180,690" fill="none" stroke="#ef6c00" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1180" cy="690" r="5" fill="#ef6c00"/>
+<polyline points="1150,342 1196,342" fill="none" stroke="#d32f2f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1196" cy="342" r="5" fill="#d32f2f"/>
+<polyline points="1196,342 1196,650" fill="none" stroke="#d32f2f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1196" cy="650" r="5" fill="#d32f2f"/>
+<polyline points="1150,170 1212,170" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1212" cy="170" r="5" fill="#212121"/>
+<polyline points="1150,420 1212,420" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1212" cy="420" r="5" fill="#212121"/>
+<polyline points="1150,575 1212,575" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1212" cy="575" r="5" fill="#212121"/>
+<polyline points="1212,170 1212,730" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1212" cy="730" r="5" fill="#212121"/>
+<rect x="100" y="140" width="190" height="190" rx="8" fill="#eceff1" stroke="#455a64" stroke-width="2"/>
+<text x="195.0" y="164" font-size="16" text-anchor="middle" fill="#212121" font-weight="bold">MQ135</text>
+<text x="195.0" y="182" font-size="12" text-anchor="middle" fill="#546e7a">gases (analógico)</text>
+<circle cx="290" cy="200" r="5" fill="#455a64"/>
+<text x="280" y="205" font-size="13" text-anchor="end" fill="#212121">AO</text>
+<circle cx="290" cy="230" r="5" fill="#455a64"/>
+<text x="280" y="235" font-size="13" text-anchor="end" fill="#212121">DO (não ligar)</text>
+<circle cx="100" cy="250" r="5" fill="#455a64"/>
+<text x="110" y="255" font-size="13" text-anchor="start" fill="#212121">VCC</text>
+<circle cx="100" cy="290" r="5" fill="#455a64"/>
+<text x="110" y="295" font-size="13" text-anchor="start" fill="#212121">GND</text>
+<rect x="317.0" y="191" width="56" height="18" rx="3" fill="#fff8e1" stroke="#5d4037" stroke-width="2"/>
+<text x="345.0" y="185" font-size="12" text-anchor="middle" fill="#5d4037" font-weight="bold">R1 4,7 kΩ</text>
+<polyline points="290,200 317.0,200" fill="none" stroke="#00838f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="373.0,200 400,200" fill="none" stroke="#00838f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="400,200 480,200" fill="none" stroke="#00838f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="400" cy="200" r="5" fill="#00838f"/>
+<rect x="391" y="437.0" width="18" height="56" rx="3" fill="#fff8e1" stroke="#5d4037" stroke-width="2"/>
+<text x="386" y="469.0" font-size="12" text-anchor="end" fill="#5d4037" font-weight="bold">R2 4,7 kΩ</text>
+<polyline points="400,200 400,437.0" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="400,493.0 400,730" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="400" cy="730" r="5" fill="#212121"/>
+<text x="404" y="176" font-size="12" text-anchor="start" fill="#00838f" font-weight="bold">≤ 2,5 V</text>
+<polyline points="100,250 60,250 60,650" fill="none" stroke="#d32f2f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="60" cy="250" r="5" fill="#d32f2f"/>
+<circle cx="60" cy="650" r="5" fill="#d32f2f"/>
+<polyline points="100,290 76,290 76,730" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="76" cy="290" r="5" fill="#212121"/>
+<circle cx="76" cy="730" r="5" fill="#212121"/>
+<polyline points="40,765 66,765" fill="none" stroke="#d32f2f" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="72" y="770" font-size="13" text-anchor="start" fill="#212121">5 V</text>
+<polyline points="120.8,765 146.8,765" fill="none" stroke="#ef6c00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="152.8" y="770" font-size="13" text-anchor="start" fill="#212121">3,3 V</text>
+<polyline points="216.8,765 242.8,765" fill="none" stroke="#212121" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="248.8" y="770" font-size="13" text-anchor="start" fill="#212121">GND</text>
+<polyline points="297.6,765 323.6,765" fill="none" stroke="#1565c0" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="329.6" y="770" font-size="13" text-anchor="start" fill="#212121">I2C SCL</text>
+<polyline points="408.8,765 434.8,765" fill="none" stroke="#2e7d32" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="440.8" y="770" font-size="13" text-anchor="start" fill="#212121">I2C SDA</text>
+<polyline points="520.0,765 546.0,765" fill="none" stroke="#6a1b9a" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="552.0" y="770" font-size="13" text-anchor="start" fill="#212121">TX do PMS → RX2</text>
+<polyline points="692.0,765 718.0,765" fill="none" stroke="#ad1457" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="724.0" y="770" font-size="13" text-anchor="start" fill="#212121">RX do PMS ← TX2</text>
+<polyline points="864.0,765 890.0,765" fill="none" stroke="#b8860b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="896.0" y="770" font-size="13" text-anchor="start" fill="#212121">dados DHT22</text>
+<polyline points="1005.6,765 1031.6,765" fill="none" stroke="#00838f" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1037.6" y="770" font-size="13" text-anchor="start" fill="#212121">sinal MQ135</text>
+<text x="630" y="812" font-size="13" text-anchor="middle" fill="#455a64">Alimentação: fonte 5 V pelo micro-USB (protótipo) ou no VIN/GND (versão de campo). Nunca as duas juntas.</text>
+</svg>
