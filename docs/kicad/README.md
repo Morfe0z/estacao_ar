@@ -16,8 +16,8 @@ Guia passo a passo para desenhar no KiCad a placa principal da estação (ESP32 
 | Etapa | Conteúdo | Situação |
 |---|---|---|
 | [K1](k1-instalar-e-criar-projeto.md) | Instalar o KiCad e criar o projeto | ✅ concluída (2026-11-06) |
-| [K2a](k2a-esquematico-colocar-pecas.md) | Esquemático: colocar as peças | 🛠️ em andamento |
-| K2b | Esquemático: ligações, com a ordem real dos pinos do ESP32 | ⏳ |
+| [K2a](k2a-esquematico-colocar-pecas.md) | Esquemático: colocar as peças | ✅ concluída (2026-11-06) |
+| [K2b](k2b-esquematico-ligacoes.md) | Esquemático: ligações, com a pinagem real do ESP32 | 🛠️ em andamento |
 | K2c | Verificação elétrica automática (ERC) | ⏳ |
 | K3 | Footprints de cada peça | ⏳ |
 | K4 | Layout da placa e verificação de regras (DRC) | ⏳ |
