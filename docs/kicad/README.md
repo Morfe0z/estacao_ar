@@ -19,8 +19,10 @@ Guia passo a passo para desenhar no KiCad a placa principal da estação (ESP32 
 | [K2a](k2a-esquematico-colocar-pecas.md) | Esquemático: colocar as peças | ✅ concluída (2026-11-06) |
 | [K2b](k2b-esquematico-ligacoes.md) | Esquemático: ligações, com a pinagem real do ESP32 | ✅ concluída (2026-11-12) — [esquemático](../../hardware/kicad/) |
 | K2c | Verificação elétrica automática (ERC) | ✅ concluída (2026-11-12): 0 erros, 0 avisos ([print](../../fotos/capturas/kicad-k2c-erc-sem-erros.png)) |
-| [K3](k3-footprints.md) | Footprints de cada peça (bornes KF301, barra fêmea, R 1/4 W, C 470 µF 8 mm) | 🛠️ em andamento |
-| K4 | Layout da placa e verificação de regras (DRC) | ⏳ |
+| [K3](k3-footprints.md) | Footprints de cada peça (bornes KF301, barra fêmea, R 1/4 W, C 470 µF 8 mm) | ✅ concluída (2026-11-12) |
+| [K4a](k4a-placa-regras-e-posicionamento.md) | Placa: regras de placa caseira, contorno 100 × 75 mm, posição das peças | 🛠️ em andamento |
+| K4b | Trilhas na camada de baixo e ilhas maiores | ⏳ |
+| K4c | Verificação de regras (DRC) | ⏳ |
 | K5 | Impressão 1:1 para transferência, corrosão, furação e conferência | ⏳ |
 
 Os arquivos do projeto KiCad ficam em [`hardware/kicad/`](../../hardware/kicad/).
