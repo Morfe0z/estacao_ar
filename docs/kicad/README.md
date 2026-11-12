@@ -17,10 +17,10 @@ Guia passo a passo para desenhar no KiCad a placa principal da estação (ESP32 
 |---|---|---|
 | [K1](k1-instalar-e-criar-projeto.md) | Instalar o KiCad e criar o projeto | ✅ concluída (2026-11-06) |
 | [K2a](k2a-esquematico-colocar-pecas.md) | Esquemático: colocar as peças | ✅ concluída (2026-11-06) |
-| [K2b](k2b-esquematico-ligacoes.md) | Esquemático: ligações, com a pinagem real do ESP32 | 🛠️ em andamento |
-| K2c | Verificação elétrica automática (ERC) | ⏳ |
+| [K2b](k2b-esquematico-ligacoes.md) | Esquemático: ligações, com a pinagem real do ESP32 | ✅ concluída (2026-11-12) — [esquemático](../../hardware/kicad/) |
+| K2c | Verificação elétrica automática (ERC) | 🛠️ próxima |
 | K3 | Footprints de cada peça | ⏳ |
 | K4 | Layout da placa e verificação de regras (DRC) | ⏳ |
 | K5 | Impressão 1:1 para transferência, corrosão, furação e conferência | ⏳ |
 
-Os arquivos do projeto KiCad entram em `hardware/kicad/` quando o esquemático estiver pronto.
+Os arquivos do projeto KiCad ficam em [`hardware/kicad/`](../../hardware/kicad/).
