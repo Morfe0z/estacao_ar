@@ -93,7 +93,7 @@ Sugestão de impressão: 3–4 perímetros, 20–30 % de preenchimento.
 |---|---|---|
 | **B. Abrigo de radiação** | **Sim** (substitui os pratos de vaso) | Fica mais leve e regular. Procure no Printables/Thingiverse por "radiation shield" ou "Stevenson screen" (anéis de ~120 mm, 6–8 andares). Use as 3 barras roscadas M5 para montar a pilha. |
 | Suporte do BME280 + DHT22 dentro do abrigo | **Sim** | Mantém os dois sensores no centro, sem encostar nas paredes. |
-| **C. Suporte interno do PMS7003 e MQ135** | **Sim** | Encaixa dentro do U de PVC; o PMS7003 mede 50 × 38 × 21 mm, deixar a entrada e a saída de ar livres. |
+| **C. Suporte interno do PMS7003 e MQ135** | **Sim** | Encaixa dentro do U de PVC; o PMS7003 mede 48 × 37 × 12 mm (folha de dados; conferir com a régua), deixar a entrada e a saída de ar livres. |
 | U de PVC 75 mm | **Não** (comprar) | Barato, resistente ao sol e à chuva por anos. |
 | **A. Caixa da eletrônica** | **Não** (comprar IP65) | Caixa impressa raramente fica estanque de verdade. |
 | Placa de montagem dentro da caixa A | **Sim** | Base para parafusar a placa soldada com espaçadores. |
