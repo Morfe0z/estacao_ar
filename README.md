@@ -31,6 +31,7 @@ Detalhes em [hardware/ligacoes.md](hardware/ligacoes.md) e [hardware/lista-de-ma
 | Calibração do MQ135 (Etapa 11) | ⏳ a fazer |
 | Placa soldada / PCB no KiCad | 🛠️ em projeto ([docs/kicad](docs/kicad/)) |
 | Estrutura externa (caixa IP65, abrigo impresso em 3D, "U" de PVC) | 🛠️ em projeto ([docs/estrutura-externa.md](docs/estrutura-externa.md)) |
+| Produto físico acabado (etapas P0–P9) | 🛠️ P1: medidas das peças e do local ([docs/produto](docs/produto/)) |
 
 ## Passo a passo da montagem
 
