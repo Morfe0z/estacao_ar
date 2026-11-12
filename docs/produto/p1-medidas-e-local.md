@@ -27,6 +27,7 @@ Medidas de folha de dados variam de fabricante para fabricante (principalmente a
 ## 2. ESP32 encaixado
 | Medir | Para quê |
 |---|---|
+| **Distância entre as duas fileiras de pinos** do ESP32 (centro a centro) | escolher a placa expansora certa (25,4 ou 22,9 mm) |
 | Altura do ESP32 sobre a protoboard, do topo da protoboard ao topo do módulo metálico | estimar a altura dentro da caixa |
 
 ## 3. Impressora 3D
